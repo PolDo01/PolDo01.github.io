@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#1c2a3e" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="960" height="540" fill="#0d1420"/>
+  <rect width="960" height="540" fill="url(#grid)"/>
+  <circle cx="480" cy="248" r="118" fill="none" stroke="#f4a35c" stroke-width="1.5" stroke-dasharray="5 10" opacity="0.55"/>
+  <rect x="432" y="200" width="96" height="96" rx="48" fill="#f4a35c" opacity="0.14" stroke="#f4a35c" stroke-width="1.5"/>
+  <text x="480" y="262" text-anchor="middle" font-family="Consolas, monospace" font-size="44" fill="#f4a35c">P2</text>
+  <text x="480" y="404" text-anchor="middle" font-family="Consolas, monospace" font-size="18" letter-spacing="4" fill="#8697ab">PROJECT TWO // PLACEHOLDER</text>
+</svg>

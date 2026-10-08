@@ -1,0 +1,12 @@
+{
+  "name": "poldo01-github-io",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun scripts/build-blog.mjs",
+    "dev": "bun scripts/dev.mjs"
+  },
+  "devDependencies": {
+    "marked": "^18.1.0"
+  }
+}
