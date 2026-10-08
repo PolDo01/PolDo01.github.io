@@ -586,16 +586,20 @@ button {
   width: 100%;
   max-width: var(--shell);
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
   padding: clamp(2.5rem, 7vh, 4.5rem) var(--gutter) clamp(7rem, 22vh, 12rem);
 }
 
 .hero__intro {
   max-width: min(36rem, 100%);
+  text-align: center;
 }
 
 .hero__status {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   margin: 0 0 1.1rem;
 }
@@ -638,6 +642,7 @@ button {
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
   margin-top: 1.6rem;
 }
