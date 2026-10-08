@@ -15,6 +15,69 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+  /* Hero cleanup */
+  .hero__inner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero__intro {
+    width: min(90%, 900px);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero__status {
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .hero__name {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 0.92;
+  }
+
+  .hero__role {
+    margin: 2rem auto 1.75rem;
+  }
+
+  .hero__lede {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+
+  .hero__ask {
+    max-width: 650px;
+    margin: 1.6rem auto 0;
+    line-height: 1.6;
+  }
+
+  .hero__actions {
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 700px) {
+    .hero__intro {
+      width: 92%;
+    }
+
+    .hero__name {
+      line-height: 0.95;
+    }
+
+    .hero__lede {
+      line-height: 1.6;
+    }
+  }
+</style>
+
 </head>
 <body>
   <a class="skip" href="#projects">Skip to projects</a>
