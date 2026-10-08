@@ -1,24 +1,25 @@
 [
   {
-    "name": "Project One",
-    "tagline": "A placeholder project",
-    "description": "Describe what this project does, why you built it, and what you learned. Swap this entry's details in data/projects.json with real information when ready.",
-    "stack": ["sql", "snowflake"],
-    "type": "Open source",
-    "image": "/assets/img/project-1.svg",
-    "site": null,
-    "repo": "https://github.com/PolDo01",
-    "sourceNote": null
+    "name": "Cyclistic Bike-share Capstone",
+    "tagline": "Google Data Analytics capstone: how casual riders and members use the bikes",
+    "description": "Analyzed a year of Cyclistic bike-share data to understand how casual riders and annual members use the bikes differently. Cleaned the data in Excel and Power Query, then built the analysis and visualizations in Power BI to recommend how marketing could convert casual riders into members.",
+    "stack": ["excel", "power query", "power bi"],
+    "type": "Case study",
+    "image": "/assets/img/capstone-cyclistic.png",
+    "site": "https://medium.com/@leogdolleteiii/google-capstone-project-a52f4bdc0553",
+    "siteLabel": "Read Write-up",
+    "repo": null,
+    "sourceNote": "Part of the Google Data Analytics Certificate. Full write-up with charts on Medium."
   },
   {
     "name": "Project Two",
-    "tagline": "A work-in-progress case study",
-    "description": "A second slot for something you are proud of. Keep descriptions to three or four sentences: what it is, who it is for, and one detail that shows the work behind it.",
-    "stack": ["python", "postgres"],
-    "type": "Case study",
+    "tagline": "Reserved for your next project",
+    "description": "A slot reserved for the next project. Describe what it does, the problem it solves, and what you learned — then replace the placeholder details in data/projects.json.",
+    "stack": ["sql", "snowflake"],
+    "type": "Work in progress",
     "image": "/assets/img/project-2.svg",
     "site": null,
     "repo": null,
-    "sourceNote": "Closed. Details available on request."
+    "sourceNote": null
   }
 ]

@@ -211,7 +211,7 @@ function indexRow(project) {
 function recordCard(project) {
   const id = slugify(project.name);
   const links = [];
-  if (project.site) links.push({ href: project.site, label: "Visit Site", primary: true });
+  if (project.site) links.push({ href: project.site, label: project.siteLabel || "Visit Site", primary: true });
   if (project.repo) links.push({ href: project.repo, label: "GitHub", primary: false });
 
   const title = links.length
