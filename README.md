@@ -21,9 +21,9 @@ scripts/
   build.mjs           Renders blog posts and project cards, updates home page
   dev.mjs             Local static server
 assets/
-  css/style.css       Design system (dark theme, Departure Mono + Fira Sans)
+  css/style.css       Design system (dark theme, pixel mono + Fira Sans)
   js/main.js          Menu, copy-to-clipboard, scrollspy
-  fonts/              Departure Mono (SIL OFL — see LICENSE-departure-mono.txt)
+  fonts/              Open-source mono font (OFL — see LICENSE-font.txt)
   img/                Favicon and project thumbnails
 ```
 
@@ -109,6 +109,6 @@ site is fully static.
 
 ## Fonts
 
-- **Departure Mono** by Helena Zhang — self-hosted, SIL OFL license included at
-  `assets/fonts/LICENSE-departure-mono.txt`.
+- **Site Mono** (self-hosted pixel mono) — SIL OFL license included at
+  `assets/fonts/LICENSE-font.txt`.
 - **Fira Sans** — loaded from Google Fonts.

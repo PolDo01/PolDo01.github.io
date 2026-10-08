@@ -1,6 +1,6 @@
 /* ==========================================================================
    poldo01.github.io — design system
-   Dark "retro hardware" theme, Departure Mono accents + Fira Sans body.
+   Dark retro hardware theme, custom pixel mono accents + Fira Sans body.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -8,8 +8,8 @@
    -------------------------------------------------------------------------- */
 
 @font-face {
-  font-family: "Departure Mono";
-  src: url("../fonts/DepartureMono-Regular.woff2") format("woff2");
+  font-family: "Site Mono";
+  src: url("../fonts/site-mono.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -19,7 +19,7 @@
   color-scheme: dark;
 
   --font-sans: "Fira Sans", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Departure Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --font-mono: "Site Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 
   --ground: #0b111b;
   --pane: #121a27;
