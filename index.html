@@ -166,17 +166,31 @@
           <nav class="index pane" aria-label="Project index">
             <p class="pane__bar"><span class="legend">Index</span> <span class="index__count">2</span></p>
             <ol class="index__list">
-              <li><a class="index__row" href="#cyclistic-bike-share-capstone">
+              <li><a class="index__row" href="#job-search">
+                <span class="index__name">Job Search</span>
+                <span class="index__sub">Closed-source job board aggregator: 5 APIs, ~16.5k jobs, medallion pipeline</span>
+              </a></li><li><a class="index__row" href="#cyclistic-bike-share-capstone">
                 <span class="index__name">Cyclistic Bike-share Capstone</span>
                 <span class="index__sub">Google Data Analytics capstone: how casual riders and members use the bikes</span>
-              </a></li><li><a class="index__row" href="#project-two">
-                <span class="index__name">Project Two</span>
-                <span class="index__sub">Reserved for your next project</span>
               </a></li>
             </ol>
           </nav>
           <div class="records">
-            <article id="cyclistic-bike-share-capstone" class="record pane" aria-labelledby="cyclistic-bike-share-capstone-title">
+            <article id="job-search" class="record pane" aria-labelledby="job-search-title">
+              <header class="record__bar pane__bar">
+                <h3 class="record__title" id="job-search-title">Job Search</h3>
+                <span class="record__type legend">Closed source</span>
+              </header>
+              <div class="record__body">
+                <div class="media"><img class="media__img" src="/assets/img/job-search-pipeline.svg" alt="Job Search thumbnail" loading="lazy"></div>
+                <div class="record__text">
+                  <p class="record__subtitle">Closed-source job board aggregator: 5 APIs, ~16.5k jobs, medallion pipeline</p>
+                  <p class="record__desc">A scheduled pipeline that pulls remote jobs from five free job-board APIs (Remotive, Jobicy, Himalayas, Arbeitnow, Greenhouse), normalizes them into one schema with a composite key, loads them into SQLite, and tags every row with a remote-work scope (global / multi-region / region-only). PySpark transforms the data into clean marts, and a daily analysis produces a shortlist of apply-able roles for APAC-eligible candidates.</p>
+                  <dl class="record__props"><div><dt>Stack</dt><dd class="record__stack">python, sqlite, pyspark, requests</dd></div><div><dt>Source</dt><dd>Closed. Architecture and code available on request.</dd></div></dl>
+                  
+                </div>
+              </div>
+            </article><article id="cyclistic-bike-share-capstone" class="record pane" aria-labelledby="cyclistic-bike-share-capstone-title">
               <header class="record__bar pane__bar">
                 <h3 class="record__title" id="cyclistic-bike-share-capstone-title"><a href="https://medium.com/@leogdolleteiii/google-capstone-project-a52f4bdc0553" target="_blank" rel="external noreferrer">Cyclistic Bike-share Capstone</a></h3>
                 <span class="record__type legend">Case study</span>
@@ -188,20 +202,6 @@
                   <p class="record__desc">Analyzed a year of Cyclistic bike-share data to understand how casual riders and annual members use the bikes differently. Cleaned the data in Excel and Power Query, then built the analysis and visualizations in Power BI to recommend how marketing could convert casual riders into members.</p>
                   <dl class="record__props"><div><dt>Stack</dt><dd class="record__stack">excel, power query, power bi</dd></div><div><dt>Source</dt><dd>Part of the Google Data Analytics Certificate. Full write-up with charts on Medium.</dd></div></dl>
                   <div class="record__links"><a class="btn btn--small btn--primary" href="https://medium.com/@leogdolleteiii/google-capstone-project-a52f4bdc0553" target="_blank" rel="external noreferrer">Read Write-up <span aria-hidden="true">&#8599;</span></a></div>
-                </div>
-              </div>
-            </article><article id="project-two" class="record pane" aria-labelledby="project-two-title">
-              <header class="record__bar pane__bar">
-                <h3 class="record__title" id="project-two-title">Project Two</h3>
-                <span class="record__type legend">Work in progress</span>
-              </header>
-              <div class="record__body">
-                <div class="media"><img class="media__img" src="/assets/img/project-2.svg" alt="Project Two thumbnail" loading="lazy"></div>
-                <div class="record__text">
-                  <p class="record__subtitle">Reserved for your next project</p>
-                  <p class="record__desc">A slot reserved for the next project. Describe what it does, the problem it solves, and what you learned — then replace the placeholder details in data/projects.json.</p>
-                  <dl class="record__props"><div><dt>Stack</dt><dd class="record__stack">sql, snowflake</dd></div></dl>
-                  
                 </div>
               </div>
             </article>

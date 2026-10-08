@@ -1,5 +1,16 @@
 [
   {
+    "name": "Job Search",
+    "tagline": "Closed-source job board aggregator: 5 APIs, ~16.5k jobs, medallion pipeline",
+    "description": "A scheduled pipeline that pulls remote jobs from five free job-board APIs (Remotive, Jobicy, Himalayas, Arbeitnow, Greenhouse), normalizes them into one schema with a composite key, loads them into SQLite, and tags every row with a remote-work scope (global / multi-region / region-only). PySpark transforms the data into clean marts, and a daily analysis produces a shortlist of apply-able roles for APAC-eligible candidates.",
+    "stack": ["python", "sqlite", "pyspark", "requests"],
+    "type": "Closed source",
+    "image": "/assets/img/job-search-pipeline.svg",
+    "site": null,
+    "repo": null,
+    "sourceNote": "Closed. Architecture and code available on request."
+  },
+  {
     "name": "Cyclistic Bike-share Capstone",
     "tagline": "Google Data Analytics capstone: how casual riders and members use the bikes",
     "description": "Analyzed a year of Cyclistic bike-share data to understand how casual riders and annual members use the bikes differently. Cleaned the data in Excel and Power Query, then built the analysis and visualizations in Power BI to recommend how marketing could convert casual riders into members.",
@@ -10,16 +21,5 @@
     "siteLabel": "Read Write-up",
     "repo": null,
     "sourceNote": "Part of the Google Data Analytics Certificate. Full write-up with charts on Medium."
-  },
-  {
-    "name": "Project Two",
-    "tagline": "Reserved for your next project",
-    "description": "A slot reserved for the next project. Describe what it does, the problem it solves, and what you learned — then replace the placeholder details in data/projects.json.",
-    "stack": ["sql", "snowflake"],
-    "type": "Work in progress",
-    "image": "/assets/img/project-2.svg",
-    "site": null,
-    "repo": null,
-    "sourceNote": null
   }
 ]
