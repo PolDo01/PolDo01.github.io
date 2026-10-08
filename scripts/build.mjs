@@ -4,8 +4,11 @@ import path from "node:path";
 
 const root = path.resolve(import.meta.dir, "..");
 const postsDir = path.join(root, "blog", "posts");
+const projectsFile = path.join(root, "data", "projects.json");
 const homepagePath = path.join(root, "index.html");
 const blogIndexPath = path.join(root, "blog", "index.html");
+
+const AUTHOR = "Leopoldo Dollete III";
 
 const esc = (value) =>
   String(value ?? "")
@@ -29,6 +32,13 @@ function parseFrontMatter(raw) {
 
 const readingMinutes = (body) =>
   Math.max(1, Math.round(body.split(/\s+/).filter(Boolean).length / 200));
+
+const slugify = (name) =>
+  String(name)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
 function pageHead({ title, description }) {
   return `<meta charset="utf-8">
@@ -76,7 +86,7 @@ function pageHeader(active) {
 function pageCopyright() {
   return `<footer class="site-copyright" aria-label="Copyright">
     <p>
-      <span>&copy; 2026 Pol Do</span>
+      <span>&copy; 2026 ${AUTHOR}</span>
       <span aria-hidden="true">|</span>
       <a href="/">poldo01.github.io</a>
     </p>
@@ -90,7 +100,7 @@ function postPage(post) {
   return `<!doctype html>
 <html lang="en">
 <head>
-  ${pageHead({ title: `${post.title} — Pol Do`, description: post.excerpt })}
+  ${pageHead({ title: `${post.title} — ${AUTHOR}`, description: post.excerpt })}
 </head>
 <body>
   <a class="skip" href="#post">Skip to content</a>
@@ -183,6 +193,82 @@ async function loadPosts() {
   return posts;
 }
 
+async function loadProjects() {
+  const raw = await readFile(projectsFile, "utf8");
+  const data = JSON.parse(raw);
+  if (!Array.isArray(data)) throw new Error("data/projects.json must contain an array of projects");
+  return data;
+}
+
+function indexRow(project) {
+  const id = slugify(project.name);
+  return `<a class="index__row" href="#${id}">
+                <span class="index__name">${esc(project.name)}</span>
+                <span class="index__sub">${esc(project.tagline)}</span>
+              </a>`;
+}
+
+function recordCard(project) {
+  const id = slugify(project.name);
+  const links = [];
+  if (project.site) links.push({ href: project.site, label: "Visit Site", primary: true });
+  if (project.repo) links.push({ href: project.repo, label: "GitHub", primary: false });
+
+  const title = links.length
+    ? `<a href="${esc(links[0].href)}" target="_blank" rel="external noreferrer">${esc(project.name)}</a>`
+    : esc(project.name);
+
+  let media = "";
+  if (project.image) {
+    const img = `<img class="media__img" src="${esc(project.image)}" alt="${esc(project.name)} thumbnail" loading="lazy">`;
+    media = links.length
+      ? `<div class="media"><a class="media__link" href="${esc(links[0].href)}" target="_blank" rel="external noreferrer" aria-label="Open ${esc(project.name)}">${img}</a></div>`
+      : `<div class="media">${img}</div>`;
+  }
+
+  const props = [`<div><dt>Stack</dt><dd class="record__stack">${esc((project.stack || []).join(", "))}</dd></div>`];
+  if (project.sourceNote) props.push(`<div><dt>Source</dt><dd>${esc(project.sourceNote)}</dd></div>`);
+
+  const linksHtml = links.length
+    ? `<div class="record__links">${links
+        .map(
+          (link) =>
+            `<a class="btn btn--small${link.primary ? " btn--primary" : ""}" href="${esc(link.href)}" target="_blank" rel="external noreferrer">${link.label} <span aria-hidden="true">&#8599;</span></a>`,
+        )
+        .join("")}</div>`
+    : "";
+
+  return `<article id="${id}" class="record pane" aria-labelledby="${id}-title">
+              <header class="record__bar pane__bar">
+                <h3 class="record__title" id="${id}-title">${title}</h3>
+                <span class="record__type legend">${esc(project.type || "")}</span>
+              </header>
+              <div class="record__body">
+                ${media}
+                <div class="record__text">
+                  <p class="record__subtitle">${esc(project.tagline)}</p>
+                  <p class="record__desc">${esc(project.description)}</p>
+                  <dl class="record__props">${props.join("")}</dl>
+                  ${linksHtml}
+                </div>
+              </div>
+            </article>`;
+}
+
+function projectsBlock(projects) {
+  return `<!-- projects:start -->
+          <nav class="index pane" aria-label="Project index">
+            <p class="pane__bar"><span class="legend">Index</span> <span class="index__count">${projects.length}</span></p>
+            <ol class="index__list">
+              ${projects.map((project) => `<li>${indexRow(project)}</li>`).join("")}
+            </ol>
+          </nav>
+          <div class="records">
+            ${projects.map(recordCard).join("")}
+          </div>
+          <!-- projects:end -->`;
+}
+
 function replaceBlock(source, startMarker, endMarker, replacement, label) {
   const pattern = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`);
   if (!pattern.test(source)) {
@@ -192,36 +278,36 @@ function replaceBlock(source, startMarker, endMarker, replacement, label) {
 }
 
 async function main() {
-  const posts = await loadPosts();
+  const [posts, projects] = await Promise.all([loadPosts(), loadProjects()]);
 
+  /* --- blog posts --- */
   for (const post of posts) {
     const outDir = path.join(root, "blog", post.slug);
     await mkdir(outDir, { recursive: true });
     await writeFile(path.join(outDir, "index.html"), postPage(post), "utf8");
   }
 
-  const home = await readFile(homepagePath, "utf8");
-  const homeNext = posts.length
-    ? replaceBlock(home, "<!-- latest-post:start -->", "<!-- latest-post:end -->", bulletin(posts[0]), "index.html")
-    : home;
-  await writeFile(homepagePath, homeNext, "utf8");
-
   let blogIndex = await readFile(blogIndexPath, "utf8");
-  blogIndex = replaceBlock(
-    blogIndex,
-    "<!-- post-list:start -->",
-    "<!-- post-list:end -->",
-    posts.map(postRow).join("\n"),
-    "blog/index.html",
-  );
+  const postListBlock = `<!-- post-list:start -->\n${posts.map(postRow).join("\n")}\n<!-- post-list:end -->`;
+  blogIndex = replaceBlock(blogIndex, "<!-- post-list:start -->", "<!-- post-list:end -->", postListBlock, "blog/index.html");
   blogIndex = blogIndex.replace(
     /(<span class="index__count" data-post-count>)\s*\d*\s*(<\/span>)/,
     `$1${posts.length}$2`,
   );
   await writeFile(blogIndexPath, blogIndex, "utf8");
 
-  console.log(`Built ${posts.length} post(s):`);
+  /* --- home page --- */
+  let home = await readFile(homepagePath, "utf8");
+  home = replaceBlock(home, "<!-- projects:start -->", "<!-- projects:end -->", projectsBlock(projects), "index.html");
+  home = home.replace(/(<span data-project-count>)\s*\d*\s*(<\/span>)/, `$1${projects.length}$2`);
+  if (posts.length) {
+    home = replaceBlock(home, "<!-- latest-post:start -->", "<!-- latest-post:end -->", bulletin(posts[0]), "index.html");
+  }
+  await writeFile(homepagePath, home, "utf8");
+
+  console.log(`Built ${posts.length} post(s) and ${projects.length} project(s):`);
   for (const post of posts) console.log(`  /blog/${post.slug}/  (${post.date}, ${post.minutes} min)`);
+  for (const project of projects) console.log(`  #${slugify(project.name)}  (${project.type || "untitled"})`);
   console.log("Updated blog/index.html and index.html");
 }
 

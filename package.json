@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "bun scripts/build-blog.mjs",
+    "build": "bun scripts/build.mjs",
     "dev": "bun scripts/dev.mjs"
   },
   "devDependencies": {
