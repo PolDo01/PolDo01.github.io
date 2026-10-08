@@ -1,321 +1,1229 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Leopoldo Dollete III — DATA ENGINEER | BI & DATA ANALYST</title>
-  <meta name="description" content="Portfolio of Leopoldo Dollete III: SQL, Snowflake, ETL pipelines, data modeling, and reporting across seven years of data analytics and business intelligence.">
+
+  <title>Leopoldo Dollete III | Data Engineer, BI & Data Analyst</title>
+
+  <meta
+    name="description"
+    content="Portfolio of Leopoldo Dollete III, a data professional with 7+ years of experience across data analytics, business intelligence, reporting, SQL, Snowflake, ETL/ELT, data modeling, Power BI, and Tableau."
+  >
+
   <meta name="theme-color" content="#0b111b">
-  <meta property="og:title" content="Leopoldo Dollete III — DATA ENGINEER | BI & DATA ANALYST">
-  <meta property="og:description" content="Seven years in data analytics and business intelligence, moving deeper into data engineering — SQL, Snowflake, ETL, data modeling, and reporting.">
+
+  <meta
+    property="og:title"
+    content="Leopoldo Dollete III | Data Engineer, BI & Data Analyst"
+  >
+
+  <meta
+    property="og:description"
+    content="Data Engineering, Business Intelligence, and Data Analytics portfolio featuring SQL, Snowflake, ETL/ELT, Power BI, Tableau, and data modeling."
+  >
+
   <meta property="og:type" content="website">
-  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="/assets/fonts/site-mono.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link
+    rel="icon"
+    href="/assets/img/favicon.svg"
+    type="image/svg+xml"
+  >
+
+  <link
+    rel="preload"
+    href="/assets/fonts/site-mono.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  >
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet"
+  >
+
   <link rel="stylesheet" href="/assets/css/style.css">
-<style>
-  /* Hero cleanup */
-  .hero__inner {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
 
-  .hero__intro {
-    width: min(95%, 1200px);
-    margin: 0 auto;
-    text-align: center;
-  }
+  <style>
 
-  .hero__status {
-    justify-content: center;
-    margin-bottom: 2rem;
-  }
+    /* ========================================
+       HERO CLEANUP
+       ======================================== */
 
-  /* Keep full name on one line on desktop */
-  .hero__name {
-    width: 100%;
-    max-width: none;
-    margin: 0 auto;
-    white-space: nowrap;
-    text-align: center;
-    font-size: clamp(4rem, 6.5vw, 7rem);
-    line-height: 1;
-    letter-spacing: -0.04em;
-  }
+    .hero {
+      min-height: calc(100vh - 60px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
 
-  .hero__role {
-    margin: 2rem auto 1.75rem;
-  }
+    .hero__inner {
+      position: relative;
+      z-index: 2;
 
-  .hero__lede {
-    max-width: 760px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.7;
-  }
+      width: 100%;
+      max-width: none;
 
-  .hero__ask {
-    max-width: 650px;
-    margin: 1.6rem auto 0;
-    line-height: 1.6;
-  }
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  .hero__actions {
-    justify-content: center;
-    margin-top: 2rem;
-  }
+      padding: 55px 40px 75px;
+      box-sizing: border-box;
+    }
 
-  /* Mobile */
-  @media (max-width: 700px) {
     .hero__intro {
-      width: 92%;
+      width: 100%;
+      max-width: 1100px;
+
+      margin: 0 auto;
+
+      text-align: center;
     }
 
-    .hero__name {
-      white-space: normal;
-      font-size: clamp(3.5rem, 15vw, 5rem);
-      line-height: 0.95;
+
+    /* OPEN TO WORK */
+
+    .hero__status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: fit-content;
+
+      margin: 0 auto 28px;
+
+      text-align: center;
     }
+
+
+    /* NAME */
+
+    h1.hero__name {
+      width: 100%;
+      max-width: none;
+
+      margin: 0 auto;
+
+      white-space: nowrap;
+
+      text-align: center;
+
+      font-size: clamp(58px, 5.5vw, 94px);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+
+    /* ROLE */
+
+    .hero__role {
+      margin: 26px auto 24px;
+
+      text-align: center;
+      line-height: 1.4;
+    }
+
+
+    /* INTRO */
 
     .hero__lede {
-      line-height: 1.6;
+      max-width: 760px;
+
+      margin: 0 auto;
+
+      text-align: center;
+
+      font-size: clamp(17px, 1.25vw, 20px);
+      line-height: 1.65;
     }
-  }
-</style>
+
+
+    /* AVAILABILITY */
+
+    .hero__ask {
+      max-width: 680px;
+
+      margin: 24px auto 0;
+
+      text-align: center;
+
+      font-size: clamp(16px, 1.15vw, 19px);
+      line-height: 1.55;
+    }
+
+
+    /* HERO BUTTONS */
+
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+
+      gap: 12px;
+
+      margin: 30px auto 0;
+    }
+
+
+    /* ========================================
+       TABLET
+       ======================================== */
+
+    @media (max-width: 1000px) {
+
+      .hero__intro {
+        max-width: 900px;
+      }
+
+      h1.hero__name {
+        font-size: clamp(52px, 7.5vw, 76px);
+      }
+
+    }
+
+
+    /* ========================================
+       MOBILE
+       ======================================== */
+
+    @media (max-width: 700px) {
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero__inner {
+        padding: 70px 20px;
+      }
+
+      .hero__intro {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .hero__status {
+        margin-bottom: 24px;
+      }
+
+      h1.hero__name {
+        white-space: normal;
+
+        font-size: clamp(48px, 15vw, 68px);
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+      }
+
+      .hero__role {
+        margin: 24px auto 22px;
+      }
+
+      .hero__lede {
+        max-width: 560px;
+
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .hero__ask {
+        max-width: 520px;
+
+        margin-top: 22px;
+
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .hero__actions {
+        flex-wrap: wrap;
+
+        margin-top: 28px;
+      }
+
+    }
+
+  </style>
+
 </head>
+
+
 <body>
+
   <a class="skip" href="#projects">Skip to projects</a>
 
+
+  <!-- ========================================
+       HEADER
+       ======================================== -->
+
   <header class="site-header">
+
     <div class="site-header__inner">
-      <a class="site-brand" href="/" aria-label="poldo01.github.io — home">
-        <svg class="site-brand__mark" viewBox="0 0 20 20" aria-hidden="true">
-          <rect x="1" y="1" width="18" height="18" rx="4" fill="#f4a35c"></rect>
-          <path d="M10 4.25 15.75 10 10 15.75 4.25 10Z" fill="#0b111b"></path>
+
+      <a
+        class="site-brand"
+        href="/"
+        aria-label="poldo01.github.io home"
+      >
+
+        <svg
+          class="site-brand__mark"
+          viewBox="0 0 20 20"
+          aria-hidden="true"
+        >
+          <rect
+            x="1"
+            y="1"
+            width="18"
+            height="18"
+            rx="4"
+            fill="#f4a35c"
+          ></rect>
+
+          <path
+            d="M10 4.25 15.75 10 10 15.75 4.25 10Z"
+            fill="#0b111b"
+          ></path>
         </svg>
+
         <span class="site-brand__word">poldo01</span>
         <span class="site-brand__tag">.github.io</span>
+
       </a>
 
-      <button class="site-header__menu" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span class="site-header__menuIcon" aria-hidden="true"></span>
+
+      <button
+        class="site-header__menu"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+
+        <span
+          class="site-header__menuIcon"
+          aria-hidden="true"
+        ></span>
+
         Menu
+
       </button>
 
-      <nav id="site-nav" class="site-nav" aria-label="Primary">
+
+      <nav
+        id="site-nav"
+        class="site-nav"
+        aria-label="Primary"
+      >
+
         <ul>
-          <li><a href="/" aria-current="page">Projects</a></li>
-          <li><a href="/blog/">Blog</a></li>
-          <li><a href="https://github.com/PolDo01" target="_blank" rel="external noreferrer">GitHub <span class="site-nav__ext" aria-hidden="true">&#8599;</span></a></li>
-          <li><a class="site-nav__cta" href="#contact">Contact</a></li>
+
+          <li>
+            <a href="/" aria-current="page">
+              Projects
+            </a>
+          </li>
+
+          <li>
+            <a href="/blog/">
+              Blog
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="https://github.com/PolDo01"
+              target="_blank"
+              rel="external noreferrer"
+            >
+              GitHub
+              <span
+                class="site-nav__ext"
+                aria-hidden="true"
+              >
+                &#8599;
+              </span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              class="site-nav__cta"
+              href="#contact"
+            >
+              Contact
+            </a>
+          </li>
+
         </ul>
+
       </nav>
+
     </div>
+
   </header>
 
+
   <main class="page" id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__scene" aria-hidden="true">
+
+
+    <!-- ========================================
+         HERO
+         ======================================== -->
+
+    <section
+      class="hero"
+      aria-labelledby="hero-title"
+    >
+
+      <div
+        class="hero__scene"
+        aria-hidden="true"
+      >
+
         <div class="hero__floor"></div>
         <div class="hero__glow"></div>
-      </div>
-      <div class="hero__inner">
-        <div class="hero__intro">
-          <p class="hero__status">
-            <span class="led led--pulse" aria-hidden="true"></span>
-            <span class="lcd">OPEN TO WORK</span>
-          </p>
-          <h1 class="hero__name" id="hero-title">Leopoldo Dollete III</h1>
-          <p class="hero__role">DATA ENGINEER | BI & DATA ANALYST</p>
-          <p class="hero__lede">
-  I’m a data professional with 6+ years of experience across data analytics,
-  business intelligence, reporting, and operations. I work with SQL,
-  Snowflake, ETL/ELT, data modeling, Power BI, Tableau, and Excel to
-  transform, validate, and analyze data for reliable reporting and better
-  business decisions.
-</p>
 
-<p class="hero__ask">
-  Open to opportunities in Data Engineering, Business Intelligence,
-  and Data Analytics.
-</p>
-          <div class="hero__actions">
-            <a class="btn btn--primary" href="#projects">Explore projects</a>
-            <a class="btn" href="/blog/">Read the blog</a>
-          </div>
-        </div>
       </div>
+
+
+      <div class="hero__inner">
+
+        <div class="hero__intro">
+
+
+          <p class="hero__status">
+
+            <span
+              class="led led--pulse"
+              aria-hidden="true"
+            ></span>
+
+            <span class="lcd">
+              OPEN TO WORK
+            </span>
+
+          </p>
+
+
+          <h1
+            class="hero__name"
+            id="hero-title"
+          >
+            Leopoldo Dollete III
+          </h1>
+
+
+          <p class="hero__role">
+            DATA ENGINEER | BI &amp; DATA ANALYST
+          </p>
+
+
+          <p class="hero__lede">
+            I’m a data professional with 7+ years of experience across
+            data analytics, business intelligence, reporting, and operations.
+            I work with SQL, Snowflake, ETL/ELT, data modeling, Power BI,
+            Tableau, and Excel to transform, validate, and analyze data for
+            reliable reporting and better business decisions.
+          </p>
+
+
+          <p class="hero__ask">
+            Open to opportunities in Data Engineering,
+            Business Intelligence, and Data Analytics.
+          </p>
+
+
+          <div class="hero__actions">
+
+            <a
+              class="btn btn--primary"
+              href="#projects"
+            >
+              Explore projects
+            </a>
+
+            <a
+              class="btn"
+              href="#contact"
+            >
+              Contact me
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </section>
 
+
     <div class="shell">
+
+
+      <!-- ========================================
+           PROFILE
+           ======================================== -->
+
       <div class="overview">
-        <section class="profile pane" aria-labelledby="profile-title">
-          <h2 class="pane__bar legend" id="profile-title">Profile</h2>
+
+        <section
+          class="profile pane"
+          aria-labelledby="profile-title"
+        >
+
+          <h2
+            class="pane__bar legend"
+            id="profile-title"
+          >
+            Profile
+          </h2>
+
+
           <dl class="props">
+
+
             <div class="props__row">
+
               <dt>Focus</dt>
-              <dd>Data analytics &amp; engineering<span class="props__sep" aria-hidden="true">&middot;</span><span class="props__detail">6+ years BI &amp; reporting</span></dd>
+
+              <dd>
+
+                Data Engineering, BI &amp; Analytics
+
+                <span
+                  class="props__sep"
+                  aria-hidden="true"
+                >
+                  &middot;
+                </span>
+
+                <span class="props__detail">
+                  7+ years in data &amp; reporting
+                </span>
+
+              </dd>
+
             </div>
+
+
             <div class="props__row">
+
               <dt>Location</dt>
-              <dd>Manila, Philippines<span class="props__sep" aria-hidden="true">&middot;</span><span class="props__detail">Remote-friendly</span></dd>
+
+              <dd>
+
+                Makati, Philippines
+
+                <span
+                  class="props__sep"
+                  aria-hidden="true"
+                >
+                  &middot;
+                </span>
+
+                <span class="props__detail">
+                  Remote-friendly
+                </span>
+
+              </dd>
+
             </div>
+
+
             <div class="props__row">
+
               <dt>Status</dt>
-              <dd>Available for opportunities</dd>
-            </div>
-           <div class="props__row">
-        <dt>Stack</dt>
-         <dd>
-    <span class="props__value">sql, snowflake, mysql, python</span>
-    <span class="props__sep" aria-hidden="true">&middot;</span>
-    <span class="props__detail">etl/elt &middot; modeling &middot; validation</span>
-    </dd>
-    </div>
-            <div class="props__row">
-              <dt>Tools</dt>
+
               <dd>
-                <span class="props__value">airflow, power bi, tableau, excel</span>
-                <span class="props__sep" aria-hidden="true">&middot;</span><span class="props__detail">etl &middot; warehousing &middot; modeling</span>
+                Available for opportunities
               </dd>
+
             </div>
+
+
             <div class="props__row">
+
+              <dt>Data</dt>
+
+              <dd>
+
+                <span class="props__value">
+                  SQL, Snowflake, MySQL, Python
+                </span>
+
+                <span
+                  class="props__sep"
+                  aria-hidden="true"
+                >
+                  &middot;
+                </span>
+
+                <span class="props__detail">
+                  ETL/ELT &middot; modeling &middot; validation
+                </span>
+
+              </dd>
+
+            </div>
+
+
+            <div class="props__row">
+
+              <dt>BI</dt>
+
+              <dd>
+
+                <span class="props__value">
+                  Power BI, Tableau, Excel
+                </span>
+
+                <span
+                  class="props__sep"
+                  aria-hidden="true"
+                >
+                  &middot;
+                </span>
+
+                <span class="props__detail">
+                  DAX &middot; Power Query &middot; KPI reporting
+                </span>
+
+              </dd>
+
+            </div>
+
+
+            <div class="props__row">
+
               <dt>Email</dt>
+
               <dd>
-                <button type="button" class="props__action" data-copy="leogdolleteiii@gmail.com" aria-label="email: leogdolleteiii@gmail.com, copy to clipboard">
-                  <span class="props__value">leogdolleteiii@gmail.com</span>
-                  <span class="key" aria-hidden="true">Copy</span>
+
+                <button
+                  type="button"
+                  class="props__action"
+                  data-copy="leogdolleteiii@gmail.com"
+                  aria-label="email: leogdolleteiii@gmail.com, copy to clipboard"
+                >
+
+                  <span class="props__value">
+                    leogdolleteiii@gmail.com
+                  </span>
+
+                  <span
+                    class="key"
+                    aria-hidden="true"
+                  >
+                    Copy
+                  </span>
+
                 </button>
+
               </dd>
+
             </div>
+
+
             <div class="props__row">
+
               <dt>GitHub</dt>
+
               <dd>
-                <a class="props__action" href="https://github.com/PolDo01" target="_blank" rel="external noreferrer">
-                  <span class="props__value">@PolDo01</span>
-                  <span class="key" aria-hidden="true">Open &#8599;</span>
+
+                <a
+                  class="props__action"
+                  href="https://github.com/PolDo01"
+                  target="_blank"
+                  rel="external noreferrer"
+                >
+
+                  <span class="props__value">
+                    @PolDo01
+                  </span>
+
+                  <span
+                    class="key"
+                    aria-hidden="true"
+                  >
+                    Open &#8599;
+                  </span>
+
                 </a>
+
               </dd>
+
             </div>
+
+
             <div class="props__row">
+
               <dt>Medium</dt>
+
               <dd>
-                <a class="props__action" href="https://medium.com/@leogdolleteiii" target="_blank" rel="external noreferrer">
-                  <span class="props__value">@leogdolleteiii</span>
-                  <span class="key" aria-hidden="true">Open &#8599;</span>
+
+                <a
+                  class="props__action"
+                  href="https://medium.com/@leogdolleteiii"
+                  target="_blank"
+                  rel="external noreferrer"
+                >
+
+                  <span class="props__value">
+                    @leogdolleteiii
+                  </span>
+
+                  <span
+                    class="key"
+                    aria-hidden="true"
+                  >
+                    Open &#8599;
+                  </span>
+
                 </a>
+
               </dd>
+
             </div>
+
+
           </dl>
+
         </section>
 
+
         <!-- latest-post:start -->
-        <a class="bulletin pane" href="/blog/google-capstone-project/" aria-label="Read latest blog post: Google Capstone Project">
+
+        <a
+          class="bulletin pane"
+          href="/blog/google-capstone-project/"
+          aria-label="Read latest blog post: Google Capstone Project"
+        >
+
           <span class="bulletin__bar pane__bar">
-            <span class="legend">Latest post</span>
-            <span class="bulletin__readouts">
-              <time class="lcd" datetime="2023-07-12">2023-07-12</time>
-              <span class="lcd">3 min read</span>
+
+            <span class="legend">
+              Latest post
             </span>
+
+            <span class="bulletin__readouts">
+
+              <time
+                class="lcd"
+                datetime="2023-07-12"
+              >
+                2023-07-12
+              </time>
+
+              <span class="lcd">
+                3 min read
+              </span>
+
+            </span>
+
           </span>
+
+
           <span class="bulletin__body">
-            <span class="bulletin__title">Google Capstone Project</span>
-            <span class="bulletin__room"><span class="bulletin__excerpt">Cyclistic bike-share — how casual riders and annual members use the bikes differently, cleaned in Excel/Power Query and visualized in Power BI.</span></span>
-            <span class="bulletin__open key" aria-hidden="true">Read post</span>
+
+            <span class="bulletin__title">
+              Google Capstone Project
+            </span>
+
+            <span class="bulletin__room">
+
+              <span class="bulletin__excerpt">
+                Cyclistic bike-share: how casual riders and annual members
+                use the bikes differently, cleaned in Excel/Power Query
+                and visualized in Power BI.
+              </span>
+
+            </span>
+
+            <span
+              class="bulletin__open key"
+              aria-hidden="true"
+            >
+              Read post
+            </span>
+
           </span>
+
         </a>
+
         <!-- latest-post:end -->
+
       </div>
 
-      <section class="projects" id="projects" aria-labelledby="projects-title">
+
+      <!-- ========================================
+           PROJECTS
+           ======================================== -->
+
+      <section
+        class="projects"
+        id="projects"
+        aria-labelledby="projects-title"
+      >
+
         <header class="projects__head">
-          <h2 class="projects__title" id="projects-title">Projects</h2>
-          <p class="projects__meta on-backdrop"><span data-project-count>2</span> records: projects and write-ups</p>
+
+          <h2
+            class="projects__title"
+            id="projects-title"
+          >
+            Projects
+          </h2>
+
+          <p class="projects__meta on-backdrop">
+            <span data-project-count>2</span>
+            records: projects and write-ups
+          </p>
+
         </header>
 
+
         <div class="projects__layout">
+
+
           <!-- projects:start -->
-          <nav class="index pane" aria-label="Project index">
-            <p class="pane__bar"><span class="legend">Index</span> <span class="index__count">2</span></p>
+
+          <nav
+            class="index pane"
+            aria-label="Project index"
+          >
+
+            <p class="pane__bar">
+
+              <span class="legend">
+                Index
+              </span>
+
+              <span class="index__count">
+                2
+              </span>
+
+            </p>
+
+
             <ol class="index__list">
-              <li><a class="index__row" href="#job-search">
-                <span class="index__name">Job Search</span>
-                <span class="index__sub">Closed-source job board aggregator: 5 APIs, ~16.5k jobs, medallion pipeline</span>
-              </a></li><li><a class="index__row" href="#cyclistic-bike-share-capstone">
-                <span class="index__name">Cyclistic Bike-share Capstone</span>
-                <span class="index__sub">Google Data Analytics capstone: how casual riders and members use the bikes</span>
-              </a></li>
+
+              <li>
+
+                <a
+                  class="index__row"
+                  href="#job-search"
+                >
+
+                  <span class="index__name">
+                    Job Search
+                  </span>
+
+                  <span class="index__sub">
+                    Closed-source job board aggregator:
+                    5 APIs, ~16.5k jobs, medallion pipeline
+                  </span>
+
+                </a>
+
+              </li>
+
+
+              <li>
+
+                <a
+                  class="index__row"
+                  href="#cyclistic-bike-share-capstone"
+                >
+
+                  <span class="index__name">
+                    Cyclistic Bike-share Capstone
+                  </span>
+
+                  <span class="index__sub">
+                    Google Data Analytics capstone:
+                    how casual riders and members use the bikes
+                  </span>
+
+                </a>
+
+              </li>
+
             </ol>
+
           </nav>
+
+
           <div class="records">
-            <article id="job-search" class="record pane" aria-labelledby="job-search-title">
+
+
+            <!-- JOB SEARCH PROJECT -->
+
+            <article
+              id="job-search"
+              class="record pane"
+              aria-labelledby="job-search-title"
+            >
+
               <header class="record__bar pane__bar">
-                <h3 class="record__title" id="job-search-title">Job Search</h3>
-                <span class="record__type legend">Closed source</span>
+
+                <h3
+                  class="record__title"
+                  id="job-search-title"
+                >
+                  Job Search
+                </h3>
+
+                <span class="record__type legend">
+                  Closed source
+                </span>
+
               </header>
+
+
               <div class="record__body">
-                <div class="media"><img class="media__img" src="/assets/img/job-search-pipeline.svg" alt="Job Search thumbnail" loading="lazy"></div>
-                <div class="record__text">
-                  <p class="record__subtitle">Closed-source job board aggregator: 5 APIs, ~16.5k jobs, medallion pipeline</p>
-                  <p class="record__desc">A scheduled pipeline that pulls remote jobs from five free job-board APIs (Remotive, Jobicy, Himalayas, Arbeitnow, Greenhouse), normalizes them into one schema with a composite key, loads them into SQLite, and tags every row with a remote-work scope (global / multi-region / region-only). PySpark transforms the data into clean marts, and a daily analysis produces a shortlist of apply-able roles for APAC-eligible candidates.</p>
-                  <dl class="record__props"><div><dt>Stack</dt><dd class="record__stack">python, sqlite, pyspark, requests</dd></div><div><dt>Source</dt><dd>Closed. Architecture and code available on request.</dd></div></dl>
-                  
+
+                <div class="media">
+
+                  <img
+                    class="media__img"
+                    src="/assets/img/job-search-pipeline.svg"
+                    alt="Job Search data pipeline architecture"
+                    loading="lazy"
+                  >
+
                 </div>
-              </div>
-            </article><article id="cyclistic-bike-share-capstone" class="record pane" aria-labelledby="cyclistic-bike-share-capstone-title">
-              <header class="record__bar pane__bar">
-                <h3 class="record__title" id="cyclistic-bike-share-capstone-title"><a href="https://medium.com/@leogdolleteiii/google-capstone-project-a52f4bdc0553" target="_blank" rel="external noreferrer">Cyclistic Bike-share Capstone</a></h3>
-                <span class="record__type legend">Case study</span>
-              </header>
-              <div class="record__body">
-                <div class="media"><a class="media__link" href="https://medium.com/@leogdolleteiii/google-capstone-project-a52f4bdc0553" target="_blank" rel="external noreferrer" aria-label="Open Cyclistic Bike-share Capstone"><img class="media__img" src="/assets/img/capstone-cyclistic.png" alt="Cyclistic Bike-share Capstone thumbnail" loading="lazy"></a></div>
+
+
                 <div class="record__text">
-                  <p class="record__subtitle">Google Data Analytics capstone: how casual riders and members use the bikes</p>
-                  <p class="record__desc">Analyzed a year of Cyclistic bike-share data to understand how casual riders and annual members use the bikes differently. Cleaned the data in Excel and Power Query, then built the analysis and visualizations in Power BI to recommend how marketing could convert casual riders into members.</p>
-                  <dl class="record__props"><div><dt>Stack</dt><dd class="record__stack">excel, power query, power bi</dd></div><div><dt>Source</dt><dd>Part of the Google Data Analytics Certificate. Full write-up with charts on Medium.</dd></div></dl>
-                  <div class="record__links"><a class="btn btn--small btn--primary" href="https://medium.com/@leogdolleteiii/google-capstone-project-a52f4bdc0553" target="_blank" rel="external noreferrer">Read Write-up <span aria-hidden="true">&#8599;</span></a></div>
+
+                  <p class="record__subtitle">
+                    Closed-source job board aggregator:
+                    5 APIs, ~16.5k jobs, medallion pipeline
+                  </p>
+
+
+                  <p class="record__desc">
+                    A scheduled pipeline that pulls remote jobs from five
+                    free job-board APIs (Remotive, Jobicy, Himalayas,
+                    Arbeitnow, Greenhouse), normalizes them into one schema
+                    with a composite key, loads them into SQLite, and tags
+                    every row with a remote-work scope
+                    (global / multi-region / region-only).
+                    PySpark transforms the data into clean marts, and a
+                    daily analysis produces a shortlist of applicable roles
+                    for APAC-eligible candidates.
+                  </p>
+
+
+                  <dl class="record__props">
+
+                    <div>
+
+                      <dt>Stack</dt>
+
+                      <dd class="record__stack">
+                        python, sqlite, pyspark, requests
+                      </dd>
+
+                    </div>
+
+
+                    <div>
+
+                      <dt>Source</dt>
+
+                      <dd>
+                        Closed. Architecture and code available on request.
+                      </dd>
+
+                    </div>
+
+                  </dl>
+
                 </div>
+
               </div>
+
             </article>
+
+
+            <!-- CYCLISTIC PROJECT -->
+
+            <article
+              id="cyclistic-bike-share-capstone"
+              class="record pane"
+              aria-labelledby="cyclistic-bike-share-capstone-title"
+            >
+
+              <header class="record__bar pane__bar">
+
+                <h3
+                  class="record__title"
+                  id="cyclistic-bike-share-capstone-title"
+                >
+
+                  <a
+                    href="https://medium.com/@leogdolleteiii/google-capstone-project-a52f4bdc0553"
+                    target="_blank"
+                    rel="external noreferrer"
+                  >
+                    Cyclistic Bike-share Capstone
+                  </a>
+
+                </h3>
+
+                <span class="record__type legend">
+                  Case study
+                </span>
+
+              </header>
+
+
+              <div class="record__body">
+
+                <div class="media">
+
+                  <a
+                    class="media__link"
+                    href="https://medium.com/@leogdolleteiii/google-capstone-project-a52f4bdc0553"
+                    target="_blank"
+                    rel="external noreferrer"
+                    aria-label="Open Cyclistic Bike-share Capstone"
+                  >
+
+                    <img
+                      class="media__img"
+                      src="/assets/img/capstone-cyclistic.png"
+                      alt="Cyclistic Bike-share Capstone dashboard"
+                      loading="lazy"
+                    >
+
+                  </a>
+
+                </div>
+
+
+                <div class="record__text">
+
+                  <p class="record__subtitle">
+                    Google Data Analytics capstone:
+                    how casual riders and members use the bikes
+                  </p>
+
+
+                  <p class="record__desc">
+                    Analyzed a year of Cyclistic bike-share data to
+                    understand how casual riders and annual members use
+                    the bikes differently. Cleaned and transformed the data
+                    using Excel and Power Query, then built the analysis and
+                    visualizations in Power BI to identify opportunities for
+                    converting casual riders into members.
+                  </p>
+
+
+                  <dl class="record__props">
+
+                    <div>
+
+                      <dt>Stack</dt>
+
+                      <dd class="record__stack">
+                        excel, power query, power bi
+                      </dd>
+
+                    </div>
+
+
+                    <div>
+
+                      <dt>Source</dt>
+
+                      <dd>
+                        Part of the Google Data Analytics Certificate.
+                        Full write-up with charts on Medium.
+                      </dd>
+
+                    </div>
+
+                  </dl>
+
+
+                  <div class="record__links">
+
+                    <a
+                      class="btn btn--small btn--primary"
+                      href="https://medium.com/@leogdolleteiii/google-capstone-project-a52f4bdc0553"
+                      target="_blank"
+                      rel="external noreferrer"
+                    >
+                      Read Write-up
+                      <span aria-hidden="true">
+                        &#8599;
+                      </span>
+                    </a>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </article>
+
           </div>
+
           <!-- projects:end -->
+
         </div>
+
       </section>
 
-      <footer class="site-footer" id="contact" aria-label="Contact">
+
+      <!-- ========================================
+           CONTACT
+           ======================================== -->
+
+      <footer
+        class="site-footer"
+        id="contact"
+        aria-label="Contact"
+      >
+
         <div class="site-footer__panel pane">
-          <p class="legend">Contact</p>
+
+          <p class="legend">
+            Contact
+          </p>
+
+
           <ul class="site-footer__links">
+
             <li>
-              <button type="button" class="btn btn--small" data-copy="leogdolleteiii@gmail.com">email: <strong>leogdolleteiii@gmail.com</strong></button>
+
+              <button
+                type="button"
+                class="btn btn--small"
+                data-copy="leogdolleteiii@gmail.com"
+              >
+                email:
+                <strong>
+                  leogdolleteiii@gmail.com
+                </strong>
+              </button>
+
             </li>
+
+
             <li>
-              <a class="btn btn--small" href="https://github.com/PolDo01" target="_blank" rel="external noreferrer">GitHub: <strong>@PolDo01</strong> <span aria-hidden="true">&#8599;</span></a>
+
+              <a
+                class="btn btn--small"
+                href="https://github.com/PolDo01"
+                target="_blank"
+                rel="external noreferrer"
+              >
+                GitHub:
+                <strong>@PolDo01</strong>
+                <span aria-hidden="true">
+                  &#8599;
+                </span>
+              </a>
+
             </li>
+
+
             <li>
-              <a class="btn btn--small" href="https://medium.com/@leogdolleteiii" target="_blank" rel="external noreferrer">Medium: <strong>@leogdolleteiii</strong> <span aria-hidden="true">&#8599;</span></a>
+
+              <a
+                class="btn btn--small"
+                href="https://medium.com/@leogdolleteiii"
+                target="_blank"
+                rel="external noreferrer"
+              >
+                Medium:
+                <strong>@leogdolleteiii</strong>
+                <span aria-hidden="true">
+                  &#8599;
+                </span>
+              </a>
+
             </li>
+
+
             <li>
-              <button type="button" class="btn btn--small" data-top>Back to top</button>
+
+              <button
+                type="button"
+                class="btn btn--small"
+                data-top
+              >
+                Back to top
+              </button>
+
             </li>
+
           </ul>
+
         </div>
+
       </footer>
+
     </div>
+
   </main>
 
-  <footer class="site-copyright" aria-label="Copyright">
+
+  <!-- ========================================
+       COPYRIGHT
+       ======================================== -->
+
+  <footer
+    class="site-copyright"
+    aria-label="Copyright"
+  >
+
     <p>
-      <span>&copy; 2026 Leopoldo Dollete III</span>
-      <span aria-hidden="true">|</span>
-      <a href="/blog/">Blog</a>
+
+      <span>
+        &copy; 2026 Leopoldo Dollete III
+      </span>
+
+      <span aria-hidden="true">
+        |
+      </span>
+
+      <a href="/blog/">
+        Blog
+      </a>
+
     </p>
+
   </footer>
 
-  <div class="toast-region" role="status" aria-live="polite"></div>
-  <script src="/assets/js/main.js" defer></script>
+
+  <div
+    class="toast-region"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+  <script
+    src="/assets/js/main.js"
+    defer
+  ></script>
+
 </body>
+
 </html>
