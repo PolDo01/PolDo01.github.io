@@ -9,20 +9,48 @@
   </defs>
   <rect width="960" height="540" fill="#0d1420"/>
   <rect width="960" height="540" fill="url(#grid)"/>
-  <text x="480" y="78" text-anchor="middle" font-family="Consolas, monospace" font-size="18" letter-spacing="6" fill="#8697ab">JOB-SEARCH // ETL PIPELINE</text>
-  <text x="480" y="106" text-anchor="middle" font-family="Consolas, monospace" font-size="13" letter-spacing="2" fill="#56687d">5 APIs - SQLite - PySpark - daily report</text>
+  <text x="480" y="78" text-anchor="middle" font-family="Consolas, monospace" font-size="18" letter-spacing="6" fill="#8697ab">JOB-SEARCH // DAILY ELT</text>
+  <text x="480" y="106" text-anchor="middle" font-family="Consolas, monospace" font-size="13" letter-spacing="2" fill="#56687d">5 KEYLESS APIs - NORMALIZE - SQLITE - PYSPARK - 06:00</text>
 
   <g font-family="Consolas, monospace">
     <g>
+      <rect x="34" y="140" width="156" height="32" rx="6" fill="#6fd6c6" opacity="0.08" stroke="#6fd6c6" stroke-width="1"/>
+      <text x="112" y="161" text-anchor="middle" font-size="12" fill="#6fd6c6">REMOTIVE</text>
+      <line x1="112" y1="174" x2="112" y2="216" stroke="#6fd6c6" stroke-width="1.5" marker-end="url(#arrow)"/>
+    </g>
+    <g>
+      <rect x="218" y="140" width="156" height="32" rx="6" fill="#6fd6c6" opacity="0.08" stroke="#6fd6c6" stroke-width="1"/>
+      <text x="296" y="161" text-anchor="middle" font-size="12" fill="#6fd6c6">JOBICY</text>
+      <line x1="296" y1="174" x2="296" y2="216" stroke="#6fd6c6" stroke-width="1.5" marker-end="url(#arrow)"/>
+    </g>
+    <g>
+      <rect x="402" y="140" width="156" height="32" rx="6" fill="#6fd6c6" opacity="0.08" stroke="#6fd6c6" stroke-width="1"/>
+      <text x="480" y="161" text-anchor="middle" font-size="12" fill="#6fd6c6">HIMALAYAS</text>
+      <line x1="480" y1="174" x2="480" y2="216" stroke="#6fd6c6" stroke-width="1.5" marker-end="url(#arrow)"/>
+    </g>
+    <g>
+      <rect x="586" y="140" width="156" height="32" rx="6" fill="#6fd6c6" opacity="0.08" stroke="#6fd6c6" stroke-width="1"/>
+      <text x="664" y="161" text-anchor="middle" font-size="12" fill="#6fd6c6">ARBEITNOW</text>
+      <line x1="664" y1="174" x2="664" y2="216" stroke="#6fd6c6" stroke-width="1.5" marker-end="url(#arrow)"/>
+    </g>
+    <g>
+      <rect x="770" y="140" width="156" height="32" rx="6" fill="#6fd6c6" opacity="0.08" stroke="#6fd6c6" stroke-width="1"/>
+      <text x="848" y="161" text-anchor="middle" font-size="12" fill="#6fd6c6">GREENHOUSE</text>
+      <line x1="848" y1="174" x2="848" y2="216" stroke="#6fd6c6" stroke-width="1.5" marker-end="url(#arrow)"/>
+    </g>
+
+    <g>
       <rect x="48" y="220" width="156" height="92" rx="10" fill="#6fd6c6" opacity="0.08" stroke="#6fd6c6" stroke-width="1.5"/>
-      <text x="126" y="262" text-anchor="middle" font-size="16" fill="#6fd6c6">EXTRACT</text>
-      <text x="126" y="286" text-anchor="middle" font-size="12" fill="#8697ab">requests + retries</text>
+      <text x="126" y="258" text-anchor="middle" font-size="16" fill="#6fd6c6">EXTRACT</text>
+      <text x="126" y="282" text-anchor="middle" font-size="12" fill="#8697ab">requests + retries</text>
+      <text x="126" y="301" text-anchor="middle" font-size="11" fill="#56687d">fail-loud exit 1</text>
     </g>
     <line x1="214" y1="266" x2="250" y2="266" stroke="#6fd6c6" stroke-width="2" marker-end="url(#arrow)"/>
     <g>
       <rect x="260" y="220" width="156" height="92" rx="10" fill="#6fd6c6" opacity="0.08" stroke="#6fd6c6" stroke-width="1.5"/>
-      <text x="338" y="262" text-anchor="middle" font-size="16" fill="#6fd6c6">NORMALIZE</text>
-      <text x="338" y="286" text-anchor="middle" font-size="12" fill="#8697ab">unified schema</text>
+      <text x="338" y="258" text-anchor="middle" font-size="16" fill="#6fd6c6">NORMALIZE</text>
+      <text x="338" y="282" text-anchor="middle" font-size="12" fill="#8697ab">23-col schema</text>
+      <text x="338" y="301" text-anchor="middle" font-size="11" fill="#56687d">classify + evidence</text>
     </g>
     <line x1="426" y1="266" x2="462" y2="266" stroke="#6fd6c6" stroke-width="2" marker-end="url(#arrow)"/>
     <g>
@@ -31,12 +59,14 @@
       <path d="M500 244v44c0 5.5 23.3 10 52 10s52-4.5 52-10v-44" fill="none" stroke="#f4a35c" stroke-width="1.5"/>
       <line x1="500" y1="266" x2="604" y2="266" stroke="#f4a35c" stroke-width="1.5"/>
       <text x="552" y="344" text-anchor="middle" font-size="13" fill="#f4a35c">jobs.db</text>
+      <text x="552" y="362" text-anchor="middle" font-size="11" fill="#8697ab">upsert (source,id)</text>
     </g>
     <line x1="642" y1="266" x2="678" y2="266" stroke="#6fd6c6" stroke-width="2" marker-end="url(#arrow)"/>
     <g>
       <rect x="688" y="220" width="156" height="92" rx="10" fill="#6fd6c6" opacity="0.08" stroke="#6fd6c6" stroke-width="1.5"/>
-      <text x="766" y="262" text-anchor="middle" font-size="16" fill="#6fd6c6">TRANSFORM</text>
-      <text x="766" y="286" text-anchor="middle" font-size="12" fill="#8697ab">pyspark marts</text>
+      <text x="766" y="258" text-anchor="middle" font-size="16" fill="#6fd6c6">TRANSFORM</text>
+      <text x="766" y="282" text-anchor="middle" font-size="12" fill="#8697ab">pyspark marts</text>
+      <text x="766" y="301" text-anchor="middle" font-size="11" fill="#56687d">parquet + csv</text>
     </g>
     <line x1="854" y1="266" x2="890" y2="266" stroke="#6fd6c6" stroke-width="2" marker-end="url(#arrow)"/>
     <g>
@@ -45,5 +75,8 @@
     </g>
   </g>
 
-  <text x="480" y="452" text-anchor="middle" font-family="Consolas, monospace" font-size="18" letter-spacing="4" fill="#8697ab">CLOSED SOURCE // 16,500 JOBS HARVESTED</text>
+  <text x="480" y="452" text-anchor="middle" font-family="Consolas, monospace" font-size="18" letter-spacing="4" fill="#8697ab">30,516 LISTINGS // 16,781 TECH KEPT // $0/MO</text>
+
+  <rect x="48" y="470" width="864" height="38" rx="6" fill="#6fd6c6" opacity="0.05" stroke="#6fd6c6" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="480" y="494" text-anchor="middle" font-family="Consolas, monospace" font-size="13" letter-spacing="2" fill="#6fd6c6">WATCHDOG 0x0 ALL STAGES OK · MISSED RUNS CATCH UP · 14-DAY PRUNE</text>
 </svg>
