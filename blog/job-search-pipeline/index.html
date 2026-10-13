@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>I Automated My Job Hunt: A $0 Pipeline That Scans 5 Job Boards Every Morning — Leopoldo Dollete III</title>
+  <meta name="description" content="How a scheduled pipeline pulls from five free job-board APIs, normalizes them into one schema, and serves an apply-able shortlist every morning at 06:00 for $0/month.">
+  <meta name="theme-color" content="#0b111b">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/site-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <a class="skip" href="#post">Skip to content</a>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-brand" href="/" aria-label="poldo01.github.io — home">
+        <svg class="site-brand__mark" viewBox="0 0 20 20" aria-hidden="true">
+          <rect x="1" y="1" width="18" height="18" rx="4" fill="#f4a35c"></rect>
+          <path d="M10 4.25 15.75 10 10 15.75 4.25 10Z" fill="#0b111b"></path>
+        </svg>
+        <span class="site-brand__word">poldo01</span>
+        <span class="site-brand__tag">.github.io</span>
+      </a>
+
+      <button class="site-header__menu" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="site-header__menuIcon" aria-hidden="true"></span>
+        Menu
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="/">Projects</a></li>
+          <li><a href="/blog/" aria-current="page">Blog</a></li>
+          <li><a href="https://github.com/PolDo01" target="_blank" rel="external noreferrer">GitHub <span class="site-nav__ext" aria-hidden="true">&#8599;</span></a></li>
+          <li><a class="site-nav__cta" href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page shell" id="top">
+    <p class="post__back"><a href="/blog/">&larr; All posts</a></p>
+
+    <article class="post pane" id="post" aria-labelledby="post-title">
+      <header class="pane__bar post__bar">
+        <span class="legend">Post</span>
+        <span class="post__readouts">
+          <time class="lcd" datetime="2026-10-11">2026-10-11</time>
+          <span class="lcd">10 min read</span>
+        </span>
+      </header>
+      <div class="post__body">
+        <h1 class="post__title" id="post-title">I Automated My Job Hunt: A $0 Pipeline That Scans 5 Job Boards Every Morning</h1>
+        <p class="post__excerpt">How a scheduled pipeline pulls from five free job-board APIs, normalizes them into one schema, and serves an apply-able shortlist every morning at 06:00 for $0/month.</p>
+        <div class="prose">
+<p><em>The in-depth write-up with all diagrams was originally published on
+<a href="https://medium.com/@leogdolleteiii/i-automated-my-job-hunt-building-a-0-data-pipeline-that-scans-5-job-boards-every-morning-47f14876f37d">Medium</a>.</em></p>
+<p>Every morning at 6:00, while I&#39;m still asleep, a scheduled task on my laptop wakes up
+and queries five job boards. It fetches the newest listings, normalizes them into one
+schema, keeps only the tech roles, and upserts everything into a single SQLite table. By
+the time I sit down with coffee, the day&#39;s batch is loaded and a &quot;can I apply&quot; report is
+waiting.</p>
+<p>I didn&#39;t build this because I love job hunting. I built it because job hunting is an
+<strong>ingestion problem</strong> in disguise.</p>
+<p>Remote roles fill fast. Waiting a day (or even a few hours) means the interesting
+listings already have a hundred applicants. Checking five boards manually every day is
+unreliable: you miss days, you miss postings, and you filter inconsistently depending on
+how tired you are. So I treated it like any other data problem: free API sources, a
+normalized schema, evidence-based filters, idempotent loads, and a scheduler that never
+forgets.</p>
+<p>One day&#39;s pull filled the table with <strong>30,516 listings</strong>, kept <strong>16,781 tech roles</strong>, ran
+in about <strong>12 minutes</strong>, and cost <strong>$0</strong>.</p>
+<h2>Constraints first (they shaped everything)</h2>
+<ul>
+<li><strong>No budget, no keys.</strong> All five sources are public keyless APIs. Remotive&#39;s free API
+is hard-capped at 18 listings (commercial access starts around $5k/month), so that leg
+is deliberately small and the pipeline has to earn coverage from the rest.</li>
+<li><strong>Local-first.</strong> It runs on my Windows laptop: no servers, no cloud bill, no
+credentials to rotate.</li>
+<li><strong>Explainable over clever.</strong> Nothing is labeled by guesswork: every kept or dropped row
+records <em>which rule fired</em>, in a <code>tech_evidence</code> column, so I can audit and tune the
+filter at any time.</li>
+<li><strong>Idempotent.</strong> Running the pipeline twice in one day is safe. The second run inserts
+nothing and refreshes the existing rows.</li>
+<li><strong>Polite.</strong> Paced requests and rate-limit backoff: I want to stay welcome on APIs that
+are free for everyone.</li>
+</ul>
+<p>That&#39;s why the project is seven numbered scripts instead of one clever app:
+<code>01_fetch</code> → <code>02_inspect</code> → <code>03_normalize</code> → <code>04_load</code> → <code>05_export</code> → <code>06_marts</code> →
+<code>07_analyze</code>. Each stage does one thing and can be inspected on its own.</p>
+<h2>The pipeline, stage by stage</h2>
+<img src="/assets/img/job-search-pipeline.svg" alt="Job search pipeline diagram"><p><em>Diagram 1: the daily pipeline end to end — five sources converge on an extract stage,
+then normalize, load into SQLite, transform, and report.</em></p>
+<p>The flow mirrors the <strong>medallion pattern</strong> you&#39;d find in a production warehouse, shrunk
+to laptop scale:</p>
+<ul>
+<li><strong>Bronze: raw snapshots.</strong> <code>01_fetch.py</code> saves the untouched API payloads as
+<code>data/raw/{source}_{date}.json</code>. Nothing is filtered or transformed here, which means
+I can re-classify history later without ever refetching it.</li>
+<li><strong>Silver: normalize and classify.</strong> <code>03_normalize_sources.py</code> maps each source&#39;s
+quirky JSON into one <strong>23-column schema</strong>, applies the tech and remote-scope
+classifiers, and writes two files: kept rows and dropped rows.</li>
+<li><strong>Load.</strong> <code>04_union_and_load.py</code> upserts everything into <code>jobs.db</code> and then deletes its
+own intermediates. The database is the single source of truth.</li>
+<li><strong>Gold: serve.</strong> <code>05_export_csv.py</code> writes an analysis-ready CSV with a computed
+<code>can_apply</code> column, <code>06_spark_marts.py</code> builds PySpark marts for reporting, and
+<code>07_analyze.py</code> prints the morning report.</li>
+</ul>
+<p>The classification is a <strong>ladder where the first match wins</strong> and is recorded per row:
+category allowlists for sources that label well → tag keywords → department metadata → a
+title regex as the last resort. The tech split is then assigned by ordered regex passes
+(data → devops → security → software → product &amp; design → other). Non-tech rows are not
+deleted; they land in SQLite with <code>is_tech = 0</code>, because a dropped row is data too.</p>
+<p>Here&#39;s what one pull looks like per source:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Listings per pull</th>
+<th>Mechanics</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Remotive</td>
+<td>18</td>
+<td>hard-capped free tier</td>
+</tr>
+<tr>
+<td>Jobicy</td>
+<td>652</td>
+<td>cursor pagination</td>
+</tr>
+<tr>
+<td>Himalayas</td>
+<td>8,000</td>
+<td>20 per page, ~33-hour window</td>
+</tr>
+<tr>
+<td>Arbeitnow</td>
+<td>9,684</td>
+<td>full feed, 429 backoff</td>
+</tr>
+<tr>
+<td>Greenhouse</td>
+<td>12,163</td>
+<td>112 verified company boards</td>
+</tr>
+</tbody></table>
+<p><code>run_daily.py</code> orchestrates stages 01 and 03-07 on Windows Task Scheduler at 06:00,
+prunes snapshots older than 14 days, and exits non-zero if anything failed.</p>
+<p><strong>Observability came built in.</strong> Every stage configures the same logger: console output
+plus a rotating file (<code>logs/{stage}_{timestamp}.log</code>, 1 MB per file, 3 backups), so weeks
+of daily runs stay reviewable without any logging infrastructure. The orchestrator writes
+its own <code>daily_*.log</code> summarizing each run, and the scheduler&#39;s <code>Last Result</code> is the
+top-level health check: <code>0x0</code> means every stage inside succeeded; anything else sends me
+straight to the failed stage in its log.</p>
+<h2>One table carries the whole story</h2>
+<img src="/assets/img/job-search-schema.svg" alt="Jobs table schema diagram"><p><em>Diagram 2: the <code>jobs</code> schema grouped by concern; the tech filter is a view, not a
+delete.</em></p>
+<p>The destination is a single table: <code>jobs</code>. Its 23 columns fall into six concerns:</p>
+<ul>
+<li><strong>Identity:</strong> <code>source</code>, <code>id</code>, <code>url</code>, <code>title</code>, <code>company_name</code></li>
+<li><strong>Listing:</strong> <code>category</code>, <code>tags</code>, <code>job_type</code>, <code>employment_type</code>, <code>publication_date</code></li>
+<li><strong>Salary:</strong> <code>salary_min</code>, <code>salary_max</code>, <code>salary_currency</code>, <code>salary_period</code></li>
+<li><strong>Location:</strong> <code>location</code>, <code>location_restrictions</code>, <code>timezone_restrictions</code>, <code>remote_scope</code></li>
+<li><strong>Classification:</strong> <code>is_tech</code>, <code>tech_field</code>, <code>tech_evidence</code></li>
+<li><strong>Audit:</strong> <code>description</code>, <code>fetched_at</code></li>
+</ul>
+<p>A few design choices do a lot of work here:</p>
+<ul>
+<li><code>(source, id)</code> is a <strong>composite primary key</strong>, so the same listing from two sources
+stays two rows, but the same listing from the same source stays one row, forever.</li>
+<li>Kept and dropped rows live side by side, separated by the <code>jobs_tech</code> view
+(<code>SELECT * FROM jobs WHERE is_tech = 1</code>). The filter is reversible; the data never is.</li>
+<li><code>remote_scope</code> is evidence-based too (<code>global</code> / <code>multi_region</code> / <code>region_only</code>) and
+feeds a <code>can_apply</code> column computed at export time.</li>
+<li>Salary is cleaned from free text where available (Remotive writes things like
+<code>$35,3k</code>, with a European decimal comma → <code>35300</code>).</li>
+</ul>
+<h2>Three war stories</h2>
+<h3>1. The API that ignored my page size</h3>
+<p>Himalayas turned out to be the hardest source to size correctly. Measuring it live:
+roughly <strong>5,900 new listings per day</strong>. My first configuration pulled the newest 3,000:
+at about 245 jobs per hour, that&#39;s a <strong>13.5-hour window</strong>. Two consequences I hadn&#39;t
+planned for:</p>
+<ul>
+<li>Daily runs at 06:00 could still leave a ~10-hour blind spot between consecutive pulls.</li>
+<li>The API quietly <strong>ignores the <code>limit</code> parameter</strong> and serves 20 results per page
+regardless. My &quot;100 per page&quot; request was a polite fiction; 3,000 listings actually
+meant 150 requests.</li>
+</ul>
+<p>The fix was to stop trusting parameters and start measuring: I raised the cap to 8,000
+(<strong>~33-hour window</strong>, comfortably more than a day), made it environment-overridable, and
+kept the 0.2-second pacing between pages. Verifying deep cursor pagination also confirmed
+the feed can be walked reliably past the old cap.</p>
+<h3>2. The case of the missing job</h3>
+<p>One day I went looking for a specific Data Engineer listing on Himalayas and it wasn&#39;t in
+my table: not filtered out, simply absent from the raw snapshot. Tracing it was a small
+detective story: the listing had been published at the end of August, and by October, in
+a newest-first feed moving at thousands of postings a day, it sat roughly <strong>250,000
+positions deep</strong>. No realistic page depth reaches it.</p>
+<p>Two lessons came out of that:</p>
+<ul>
+<li>An aggregator fed by the public feed only ever sees <strong>fresh</strong> postings. Old listings
+need targeted sources (their company&#39;s own ATS API; the project already does this for
+Greenhouse&#39;s 112 company boards).</li>
+<li><strong>Failures were too quiet.</strong> A source that fetched zero jobs looked exactly like
+success. The fetch stage now exits non-zero when any source errors or comes back empty,
+and the task scheduler&#39;s <code>Last Result</code> reflects it honestly.</li>
+</ul>
+<p>While I was in there, I also hardened the schedule itself: the task now runs <strong>as soon
+as possible after a missed start</strong> (laptop asleep at 6:00) and no longer gets skipped on
+battery.</p>
+<h3>3. Idempotency is a feature, not an accident</h3>
+<p>The first full run inserted 30,516 rows and kept 16,781 as tech roles. The second run the
+same day: <strong>0 inserted, everything refreshed</strong>. That behavior comes from one line of SQL,
+<code>INSERT ... ON CONFLICT(source, id) DO UPDATE</code>, and it changes how everything else feels.
+Retrying after a partial failure never double-counts. Running twice in a day costs
+nothing. And when the same job appeared twice inside a feed, one duplicate silently
+collapsed (it did on the latest 8,000-listing pull).</p>
+<h3>Small correctness wins</h3>
+<ul>
+<li>Arbeitnow rate-limits under load; fetches retry with <strong>5-10 second backoff</strong> on <code>429</code>;
+rate limits are normal, not failures.</li>
+<li>CSV cells starting with <code>=</code>, <code>+</code>, <code>-</code>, or <code>@</code> get a <code>&#39;</code> prefix, so a job description
+can never become a <strong>spreadsheet formula</strong>.</li>
+<li>All SQL is parameterized; Greenhouse board slugs are validated with <code>^[a-z0-9-]+$</code>.</li>
+<li>The company list is read with <code>utf-8-sig</code> because PowerShell wrote it with a BOM; a
+small detail that would have silently broken the first board name.</li>
+</ul>
+<h2>Results</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Listings in the database</td>
+<td>30,516</td>
+</tr>
+<tr>
+<td>Tech roles kept</td>
+<td>16,781</td>
+</tr>
+<tr>
+<td>Scope: global / multi-region / region-bound</td>
+<td>410 / 804 / 29,302</td>
+</tr>
+<tr>
+<td>Tech split</td>
+<td>software 7,022 · data 4,587 · product &amp; design 1,647 · devops 1,572 · other 1,319 · security 634</td>
+</tr>
+<tr>
+<td>Schedule</td>
+<td>daily at 06:00</td>
+</tr>
+<tr>
+<td>Runtime</td>
+<td>~12 minutes</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>$0/month</td>
+</tr>
+</tbody></table>
+<h2>If I had to scale this</h2>
+<p>This pipeline is a laptop-scale warehouse, so scaling it is less &quot;rewrite everything&quot; and
+more &quot;swap each stage for its managed equivalent&quot;. The part that doesn&#39;t change is the
+<strong>business logic</strong>: the classification ladders, the scope rules, and the medallion
+structure all carry over as-is.</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Today (local)</th>
+<th>Scale option</th>
+<th>Switch when...</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Orchestration</td>
+<td><code>run_daily.py</code> + Task Scheduler</td>
+<td>Airflow / Prefect / Dagster (managed: MWAA, Cloud Composer)</td>
+<td>multiple pipelines, backfills, retries, a team</td>
+</tr>
+<tr>
+<td>Ingestion</td>
+<td><code>requests</code> fetchers</td>
+<td>Airbyte / Fivetran / Meltano (keep custom fetchers as containers for niche APIs)</td>
+<td>dozens of sources, auth, incremental sync</td>
+</tr>
+<tr>
+<td>Raw storage</td>
+<td>local JSON, 14-day retention</td>
+<td>S3 / GCS bronze bucket, date partitions + lifecycle rules</td>
+<td>volume, durability, sharing</td>
+</tr>
+<tr>
+<td>Transform</td>
+<td>Python normalizers</td>
+<td>dbt / SQLMesh; PySpark on Databricks / EMR / Glue</td>
+<td>rules in reviewed SQL, tests, big volume</td>
+</tr>
+<tr>
+<td>Warehouse</td>
+<td>SQLite</td>
+<td>DuckDB → Postgres / BigQuery / Snowflake</td>
+<td>concurrent users, BI tools, GBs+</td>
+</tr>
+<tr>
+<td>Quality</td>
+<td>logs and spot checks</td>
+<td>dbt tests / Great Expectations / Soda</td>
+<td>trust, SLAs, alerting</td>
+</tr>
+<tr>
+<td>Serving</td>
+<td>CSV + parquet marts</td>
+<td>Metabase / Superset / Looker Studio</td>
+<td>stakeholders, dashboards</td>
+</tr>
+<tr>
+<td>Monitoring</td>
+<td>log files</td>
+<td>healthchecks.io / Slack alerts / Sentry</td>
+<td>silent failures start to matter</td>
+</tr>
+</tbody></table>
+<p>The order I&#39;d actually take: DuckDB and dbt first (same laptop, better SQL), then object
+storage, then a real orchestrator when more than one pipeline exists. Nothing on this
+list needs adopting until the trigger fires, which is exactly the point of building it
+small first.</p>
+<h2>What this project taught me</h2>
+<ul>
+<li><strong>Measure the API, don&#39;t trust the docs.</strong> Page sizes lie, caps are silent, and &quot;total
+jobs&quot; is not &quot;jobs you&#39;ll receive&quot;. The only reliable spec is observed behavior.</li>
+<li><strong>Failures should be loud.</strong> A silent zero is worse than an error, because it looks
+like a successful empty day. Non-zero exits and honest scheduler results beat nice
+logs.</li>
+<li><strong>Freshness is a feature.</strong> Deciding <em>what window</em> your pipeline sees is a design
+decision, not an accident. 33 hours &gt; 24 hours &gt; 13.5 hours.</li>
+<li><strong>Idempotency compounds.</strong> Upserts turn every retry, rerun, and crash recovery into a
+non-event.</li>
+<li><strong>Simple scripts with strong contracts beat premature frameworks.</strong> Every stage here is
+a file you can read in one sitting, and that&#39;s why I can still explain every row it
+produces.</li>
+</ul>
+<h2>Closing</h2>
+<p>The pipeline now runs on its own, and my job hunt starts from a filtered table instead of
+five browser tabs. If you&#39;re solving a similar &quot;small but real&quot; problem, the tools are
+free and the patterns are the same ones big warehouses use, just smaller.</p>
+<hr>
+<p>The full article with commentary is on
+<a href="https://medium.com/@leogdolleteiii/i-automated-my-job-hunt-building-a-0-data-pipeline-that-scans-5-job-boards-every-morning-47f14876f37d">Medium</a>.</p>
+
+        </div>
+      </div>
+    </article>
+
+    <div class="post__foot">
+      <a class="btn" href="/blog/">&larr; Back to blog</a>
+      <a class="btn btn--primary" href="/#contact">Get in touch</a>
+    </div>
+  </main>
+
+  <footer class="site-copyright" aria-label="Copyright">
+    <p>
+      <span>&copy; 2026 Leopoldo Dollete III</span>
+      <span aria-hidden="true">|</span>
+      <a href="/">poldo01.github.io</a>
+    </p>
+  </footer>
+
+  <div class="toast-region" role="status" aria-live="polite"></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>
